@@ -96,6 +96,10 @@ div.stButton > button:hover, .stDownloadButton button:hover {
 /* Spacing bij labels/uploader */
 .step-label p { margin-bottom: 0.5rem !important; }
 .step-label + div[data-testid="stFileUploader"] { margin-top: 0 !important; }
+
+/* TEST: laat de body-tekst heel donkerblauw worden */
+body, .stApp { color: #0a0f1a !important; }
+
 </style>
 """, unsafe_allow_html=True)
 
