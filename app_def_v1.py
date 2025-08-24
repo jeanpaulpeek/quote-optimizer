@@ -1054,6 +1054,4 @@ def _soft_reset():
 if st.button("Reset invoer", help="Zet aantallen/keuzes/resultaten terug, behoudt geüploade prijslijst."):
     _soft_reset()
 
-import datetime as _dt
-st.sidebar.caption(f"🟢 build: { _dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S') }")
 
