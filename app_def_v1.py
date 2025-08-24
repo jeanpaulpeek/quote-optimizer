@@ -22,19 +22,25 @@ st.set_page_config(page_title="The Studio - Budget Optimizer Voor Interieur Prof
 
 st.markdown("""
 <style id="final-override">
+/* Inter font import */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
+/* Reset */
 html, body, .stApp {
   background: #ffffff !important;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  color: #0f172a;
+  color: #0f172a !important;
 }
+
+/* Kopteksten */
 h1, h2, h3, h4 {
   font-size: 28px !important;
   font-weight: 600 !important;
   line-height: 1.3 !important;
   margin-bottom: .6rem !important;
 }
+
+/* Body tekst */
 .block-container,
 [data-testid="stAppViewContainer"],
 [data-testid="stSidebarContent"],
@@ -53,16 +59,46 @@ label, p, span, li, a, legend, small, code, pre {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   font-weight: 400 !important;
 }
+
+/* Tabelkop iets zwaarder */
 .dataframe th { font-weight: 600 !important; }
+
+/* Tabelcellen luchtiger */
 div[data-testid="stDataFrame"] th,
 div[data-testid="stDataFrame"] td { padding: 6px 8px !important; }
+            
+/* Tekst onder uploader rood */
 div[data-testid="stFileUploaderDropzone"] p {
-  color: #dc2626; font-size: 15px; font-weight: 500;
+    color: #dc2626 !important;   /* alleen hier rood */
+    font-size: 15px !important;
+    font-weight: 500 !important;
 }
+
+/* Knoppen zwart/wit */
+div.stButton > button, .stDownloadButton button {
+    background-color: #0f172a !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 500 !important;
+}
+div.stButton > button:hover, .stDownloadButton button:hover {
+    background-color: #1e293b !important;
+}
+
+/* Radio & checkboxes donker */
+.stRadio label, .stCheckbox label {
+    color: #0f172a !important;
+    font-weight: 400 !important;
+}
+
+/* Spacing bij labels/uploader */
 .step-label p { margin-bottom: 0.5rem !important; }
 .step-label + div[data-testid="stFileUploader"] { margin-top: 0 !important; }
 </style>
 """, unsafe_allow_html=True)
+
 
 # ----------------- PDF CONST -----------------
 PAGE_SIZE = A4
