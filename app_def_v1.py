@@ -460,7 +460,7 @@ use_demo = st.toggle(
     key="use_demo_toggle",
 )
 
-DEMO_XLSX_PATH = Path(__file__).with_name("Prijslijst - demo dataset.xlsx")
+DEMO_XLSX_PATH = Path(__file__).with_name("Demo_prijslijst.xlsx")
 
 @st.cache_data(show_spinner=False)
 def _load_demo_df(path: Path) -> pd.DataFrame:
