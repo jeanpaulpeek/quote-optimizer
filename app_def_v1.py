@@ -462,10 +462,7 @@ st.markdown(
         <img src="https://raw.githubusercontent.com/jeanpaulpeek/quote-optimizer/refs/heads/main/The_Studio_Logo.png"
              alt="The Studio Logo"
              style="height:96px;">
-        <span style="font-size:22px; font-weight:600; color:#0f172a;">
-            The Studio Budget Optimizer
-        </span>
-    </div>
+          </div>
     """,
     unsafe_allow_html=True
 )
