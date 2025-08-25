@@ -491,16 +491,6 @@ st.markdown(
     '<div class="step-label"><strong>Stap 1. Upload prijslijst (.xlsx) of gebruik de demo-dataset.</strong></div>',
     unsafe_allow_html=True
 )
-
-# Downloadbutton voor template-prijslijst
-with open("Prijslijst_Template.xlsx", "rb") as f:
-    st.download_button(
-        label="⬇️ Download template-prijslijst",
-        data=f,
-        file_name="Prijslijst_Template.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
-  
 use_demo = st.toggle(
     "Demo-dataset gebruiken",
     value=False,
@@ -556,6 +546,17 @@ else:
         {"soort": s, "actief": False, "aantal": 0, "min_klasse": None, "max_klasse": None, "niet_mixen": False}
         for s in sorted(pd.Series(df_raw["soort"]).dropna().unique().tolist())
     ]
+
+st.markdown("<div style='margin-bottom:16px;'></div>", unsafe_allow_html=True)
+
+# Downloadbutton voor template-prijslijst
+with open("Prijslijst_Template.xlsx", "rb") as f:
+    st.download_button(
+        label="⬇️ Download template-prijslijst",
+        data=f,
+        file_name="Prijslijst_Template.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
 
 st.markdown("<div style='margin-bottom:16px;'></div>", unsafe_allow_html=True)
 
