@@ -535,10 +535,7 @@ else:
     uploaded = st.file_uploader("Upload prijslijst (.xlsx)", type=["xlsx"], key="uploader_main")
 
     if uploaded is None:
-        # 1) Eén warning-balk (geen dubbele)
         st.warning("Upload een prijslijst (.xlsx) om te starten of schakel de demo-dataset in.")
-
-        # 2) Direct daaronder: download-knop voor je template
         try:
             with open("Prijslijst_Template.xlsx", "rb") as f:
                 st.download_button(
@@ -550,13 +547,36 @@ else:
                 )
         except FileNotFoundError:
             st.info("📄 Template-bestand ontbreekt in de repo (root). Voeg 'Prijslijst_Template.xlsx' toe.")
-
         st.stop()
 
-    # pas hier df_raw vullen als er een bestand is
+    # ===== Excel inladen + normaliseren =====
     df_raw = pd.read_excel(uploaded)
     df_raw.columns = df_raw.columns.str.lower()
-    # (eventueel extra validatie etc. zoals in jouw code)
+
+    needed = {"artikel","soort","merk","prijs","klasse"}  # korting optioneel
+    missing = needed - set(df_raw.columns)
+    if missing:
+        st.error("Je Excel mist één of meer kolommen: " + ", ".join(sorted(missing)))
+        st.stop()
+
+    # types naar numeriek waar nodig
+    df_raw["prijs"]  = pd.to_numeric(df_raw["prijs"], errors="coerce")
+    df_raw["klasse"] = pd.to_numeric(df_raw["klasse"], errors="coerce")
+    if "korting_leverancier" in df_raw.columns:
+        df_raw["korting_leverancier"] = pd.to_numeric(df_raw["korting_leverancier"], errors="coerce")
+        # Als gebruiker 10 of 35 invult i.p.v. 0.10 / 0.35 → normaliseer
+        if df_raw["korting_leverancier"].dropna().gt(1).any():
+            df_raw["korting_leverancier"] = df_raw["korting_leverancier"] / 100.0
+    else:
+        df_raw["korting_leverancier"] = 0.0
+
+    # ===== HIER: init_rows ZEKER ZETTEN =====
+    init_rows = [
+        {"soort": s, "actief": False, "aantal": 0,
+         "min_klasse": None, "max_klasse": None, "niet_mixen": False}
+        for s in sorted(pd.Series(df_raw["soort"]).dropna().unique().tolist())
+    ]
+
 
 st.markdown("<div style='margin-bottom:16px;'></div>", unsafe_allow_html=True)
 
