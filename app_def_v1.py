@@ -539,7 +539,7 @@ else:
         try:
             with open("Prijslijst_Template.xlsx", "rb") as f:
                 st.download_button(
-                    label="⬇️ Download template-prijslijst",
+                    label="⬇Download prijslijst template",
                     data=f,
                     file_name="Prijslijst_Template.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -673,7 +673,7 @@ with st.form("opt_form", clear_on_submit=False):
             "niet_mixen": st.column_config.CheckboxColumn("Niet mixen"),
         },
     )
-    submitted = st.form_submit_button("🔎 Optimaliseren", use_container_width=False, type="primary", help="Bereken Good/Better/Best", disabled=False)
+    submitted = st.form_submit_button("Optimaliseren", use_container_width=False, type="primary", help="Bereken Good/Better/Best", disabled=False)
 
 # 7) OPTIMALISEREN
 if submitted:
