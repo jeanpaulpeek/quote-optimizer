@@ -525,38 +525,27 @@ if use_demo:
         for s in sorted(pd.Series(df_raw["soort"]).dropna().unique().tolist())
     ]
 else:
-    uploaded = st.file_uploader("Upload prijslijst (.xlsx)", type=["xlsx"], key="uploader_main")
-    if uploaded is None:
-        st.warning("Upload een prijslijst of schakel de demo-dataset in.")
-        st.stop()
-    df_raw = pd.read_excel(uploaded)
-    df_raw.columns = df_raw.columns.str.lower()
-    needed = {"artikel","soort","merk","prijs","klasse"}
-    missing = needed - set(df_raw.columns)
-    if missing:
-        st.error("Je Excel mist één of meer kolommen: " + ", ".join(sorted(missing)))
-        st.stop()
-    if "korting_leverancier" in df_raw.columns:
-        df_raw["korting_leverancier"] = pd.to_numeric(df_raw["korting_leverancier"], errors="coerce")
-        if df_raw["korting_leverancier"].dropna().gt(1).any():
-            df_raw["korting_leverancier"] /= 100.0
-    else:
-        df_raw["korting_leverancier"] = 0.0
-    init_rows = [
-        {"soort": s, "actief": False, "aantal": 0, "min_klasse": None, "max_klasse": None, "niet_mixen": False}
-        for s in sorted(pd.Series(df_raw["soort"]).dropna().unique().tolist())
-    ]
+   uploaded = st.file_uploader("Upload prijslijst (.xlsx)", type=["xlsx"], key="uploader_main")
 
-st.markdown("<div style='margin-bottom:16px;'></div>", unsafe_allow_html=True)
+if uploaded is None:
+    # 1) Eén warning-balk (geen dubbele)
+    st.warning("Upload een prijslijst (.xlsx) om te starten of schakel de demo-dataset in.")
 
-# Downloadbutton voor template-prijslijst
-with open("Prijslijst_Template.xlsx", "rb") as f:
-    st.download_button(
-        label="⬇️ Download template-prijslijst",
-        data=f,
-        file_name="Prijslijst_Template.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+    # 2) Direct daaronder: download-knop voor je template
+    try:
+        with open("Prijslijst_Template.xlsx", "rb") as f:
+            st.download_button(
+                label="⬇️ Download template-prijslijst",
+                data=f,
+                file_name="Prijslijst_Template.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key="dl_template_btn"
+            )
+    except FileNotFoundError:
+        st.info("📄 Template-bestand ontbreekt in de repo (root). Voeg 'Prijslijst_Template.xlsx' toe.")
+
+    st.stop()
+
 
 st.markdown("<div style='margin-bottom:16px;'></div>", unsafe_allow_html=True)
 
