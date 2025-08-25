@@ -456,6 +456,20 @@ def solve_max_quality_under_budget(
     return df, total_price, avg_class
 
 # ----------------- UI -----------------
+st.markdown(
+    """
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:1rem;">
+        <img src="https://raw.githubusercontent.com/jeanpaulpeek/quote-optimizer/refs/heads/main/The_Studio_Logo.png"
+             alt="The Studio Logo"
+             style="height:48px;">
+        <span style="font-size:22px; font-weight:600; color:#0f172a;">
+            The Studio Budget Optimizer
+        </span>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 st.title("The Studio - Budget Optimizer Voor Interieur Professionals")
 
 # Introblok met quote-style en divider
