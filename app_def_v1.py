@@ -491,6 +491,7 @@ st.markdown(
     '<div class="step-label"><strong>Stap 1. Upload prijslijst (.xlsx) of gebruik de demo-dataset.</strong></div>',
     unsafe_allow_html=True
 )
+
 use_demo = st.toggle(
     "Demo-dataset gebruiken",
     value=False,
@@ -514,40 +515,51 @@ def _load_demo_df(path: Path) -> pd.DataFrame:
         df["korting_leverancier"] = 0.0
     return df
 
+# Zorg dat 'uploaded' altijd bestaat
+uploaded = None
+
 if use_demo:
     try:
         df_raw = _load_demo_df(DEMO_XLSX_PATH)
     except Exception as e:
         st.error(f"Kon demo-dataset niet laden: {e}")
         st.stop()
+
     init_rows = [
-        {"soort": s, "actief": False, "aantal": 0, "min_klasse": None, "max_klasse": None, "niet_mixen": False}
+        {"soort": s, "actief": False, "aantal": 0,
+         "min_klasse": None, "max_klasse": None, "niet_mixen": False}
         for s in sorted(pd.Series(df_raw["soort"]).dropna().unique().tolist())
     ]
+
 else:
-   uploaded = st.file_uploader("Upload prijslijst (.xlsx)", type=["xlsx"], key="uploader_main")
+    uploaded = st.file_uploader("Upload prijslijst (.xlsx)", type=["xlsx"], key="uploader_main")
 
-if uploaded is None:
-    # 1) Eén warning-balk (geen dubbele)
-    st.warning("Upload een prijslijst (.xlsx) om te starten of schakel de demo-dataset in.")
+    if uploaded is None:
+        # 1) Eén warning-balk (geen dubbele)
+        st.warning("Upload een prijslijst (.xlsx) om te starten of schakel de demo-dataset in.")
 
-    # 2) Direct daaronder: download-knop voor je template
-    try:
-        with open("Prijslijst_Template.xlsx", "rb") as f:
-            st.download_button(
-                label="⬇️ Download template-prijslijst",
-                data=f,
-                file_name="Prijslijst_Template.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                key="dl_template_btn"
-            )
-    except FileNotFoundError:
-        st.info("📄 Template-bestand ontbreekt in de repo (root). Voeg 'Prijslijst_Template.xlsx' toe.")
+        # 2) Direct daaronder: download-knop voor je template
+        try:
+            with open("Prijslijst_Template.xlsx", "rb") as f:
+                st.download_button(
+                    label="⬇️ Download template-prijslijst",
+                    data=f,
+                    file_name="Prijslijst_Template.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    key="dl_template_btn"
+                )
+        except FileNotFoundError:
+            st.info("📄 Template-bestand ontbreekt in de repo (root). Voeg 'Prijslijst_Template.xlsx' toe.")
 
-    st.stop()
+        st.stop()
 
+    # pas hier df_raw vullen als er een bestand is
+    df_raw = pd.read_excel(uploaded)
+    df_raw.columns = df_raw.columns.str.lower()
+    # (eventueel extra validatie etc. zoals in jouw code)
 
 st.markdown("<div style='margin-bottom:16px;'></div>", unsafe_allow_html=True)
+
 
 # 2) STAP 2 — Doelkeuze
 st.markdown(
