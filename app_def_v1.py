@@ -461,7 +461,7 @@ st.markdown(
     <div style="display:flex; align-items:center; gap:16px; margin-bottom:1rem;">
         <img src="https://raw.githubusercontent.com/jeanpaulpeek/quote-optimizer/refs/heads/main/The_Studio_Logo.png"
              alt="The Studio Logo"
-             style="height:48px;">
+             style="height:96px;">
         <span style="font-size:22px; font-weight:600; color:#0f172a;">
             The Studio Budget Optimizer
         </span>
@@ -470,7 +470,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("The Studio - Quote Optimizer Voor Interieur Professionals")
+st.title("The Studio - Offerte Optimizer Voor Interieur Professionals")
 
 # Introblok met quote-style en divider
 st.markdown(
