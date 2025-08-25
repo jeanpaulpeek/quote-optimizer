@@ -467,8 +467,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("The Studio - Offerte Optimizer Voor Interieur Professionals")
-
 # Introblok met quote-style en divider
 st.markdown(
     """
@@ -480,7 +478,7 @@ st.markdown(
         background-color:#fafafa;
     ">
         <p style="margin:0; font-size:16px; line-height:1.5; color:#334155;">
-        The Studio Budget Optimizer is een tool die automatisch de kwalitatief beste combinatie interieurproducten maakt binnen het gestelde budget én de beste combinatie binnen een gestelde kwalitateitseis.
+        The Studio Quote Optimizer is een tool die automatisch de kwalitatief beste combinatie interieurproducten maakt binnen het gestelde budget én/of de beste combinatie binnen een gestelde kwalitateitseis.
         </p>
     </div>
     <hr style="border:0; border-top:1px solid #e5e7eb; margin:1.5rem 0;">
