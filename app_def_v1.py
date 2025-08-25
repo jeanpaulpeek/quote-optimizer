@@ -497,7 +497,7 @@ with open("Prijslijst_Template.xlsx", "rb") as f:
     st.download_button(
         label="⬇️ Download template-prijslijst",
         data=f,
-        file_name="Prijslijst_Template.xlsx",
+        file_name="Prijslijst - Template.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
   
