@@ -470,7 +470,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("The Studio - Budget Optimizer Voor Interieur Professionals")
+st.title("The Studio - Quote Optimizer Voor Interieur Professionals")
 
 # Introblok met quote-style en divider
 st.markdown(
