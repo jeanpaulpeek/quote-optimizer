@@ -604,6 +604,12 @@ doel = st.radio(
     label_visibility="collapsed",
     key="doel_radio"
 )
+# Context-hint bij doelkeuze
+if doel == DOEL_KLASSE:
+    st.caption("Budgetvelden zijn niet van toepassing bij dit doel: de optimizer zoekt de laagste prijs die aan de klasse-eis voldoet.")
+else:
+    st.caption("Vul een budget in; de optimizer maximaliseert de kwaliteit binnen dat budget.")
+
 
 # 3) STAP 3 — Klantkorting
 st.markdown(
@@ -906,6 +912,8 @@ if "gbb_options" in st.session_state and st.session_state["gbb_options"]:
                 st.markdown("#### **Best** — Max. kwaliteit binnen budget")
                 st.metric("Totaal (klant)", euro(better_total, 0))
                 st.metric("Gem. klasse", f"{better_avg:.2f}".replace(".", ","))
+            # Extra toelichting specifiek voor DOEL_KLASSE
+            st.caption("Let op: 'Good' negeert budget en voldoet minimaal aan jouw klasse-eis; 'Best' gebruikt het opgegeven budget.")
 
             st.caption(
                 f"Verschil (Best − Good): "
